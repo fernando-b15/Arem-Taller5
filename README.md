@@ -1,6 +1,8 @@
 # Arem-Taller5
 
-Este taller fue hecho para comprender el uso y las funcionalidades de los dockers ,ademas entender el funcionamiento de los balanceadores round robin ,como tambien entender como se puede montar una arquitectura de servicios contenidos en dokers y desplegarlos en un ambiente  cloud en este caso Aws,en este taller cuenta con tres log services cada uno almacenados en dockers independientes  y estos log services a su vez se comunican con otro docker que contiene la base de datos mongoDB que es donde se almacenan los logs y los log services insertan los nuevos logs y consulta los logs registrados y selecciona los ultimos 10 insertados y se los retorna al docker que contiene el balancedador round robin y este balanacedor se encarga de balancear las cargas de trabajo de los log services, ya que despues de cada operacion ya sea de consulta o de insercion cambia a otro log service y asi sucesivamente va enviadoles peticiones a tres log services y por ultimo se llevaron los 5 dockers a una instancia ec2 de aws y se comprobo su funcionamiento de esta arquitectura de dockers de registro y consulta de logs desde la la ip publica de la instacia ec2 de aws
+Este taller fue hecho para comprender el uso y las funcionalidades de los dockers ,ademas entender el funcionamiento de los balanceadores round robin ,como tambien entender como se puede montar una arquitectura de servicios contenidos en dokers y desplegarlos en un ambiente  cloud en este caso Aws,en este taller cuenta con tres log services cada uno almacenados en dockers independientes  y estos log services a su vez se comunican con otro docker que contiene la base de datos mongoDB que es donde se almacenan los logs.
+
+Los log services se encragan de insertar los nuevos logs y consulta los logs registrados en la base de datos y selecciona los ultimos 10 logs insertados y se los retorna al docker que contiene el balancedador round robin y este balanacedor se encarga de balancear las cargas de trabajo de los log services equitativamente , ya que despues de cada operacion ya sea de consulta o de insercion cambia a otro log service y asi sucesivamente va enviadoles peticiones a los tres log services y por ultimo se llevaron los 5 dockers a una instancia ec2 y se comprobo su correcto funcionamiento.
 
 # Pre-Requisitos
 
@@ -21,7 +23,7 @@ Para el uso de la aplicacion se requiere que el computador tenga instalados los 
    * Circle Ci BalanceadorRoundRobin
    * [![CircleCI](https://circleci.com/gh/fernando-b15/BalanceadorRoundRobin.svg?style=svg&circle-token=f58a82718accbf45bc84402705e4e9945ccbeaf1)](https://app.circleci.com/pipelines/github/fernando-b15/BalanceadorRoundRobin/1/workflows/ae061c63-26a3-42b8-bcee-6754b962b0ba) 
    
-   # Instalacion
+ # Instalacion
 
 Para comenzar la instalacion porfavor copie el siguiente comando en su linea de comandos :
 
@@ -61,7 +63,33 @@ Despues se realiza la compilacion y empaquetacion del  servicio Balanceador Roun
 mvn package
 ~~~
 
+# Generacion de Imagenes de containers
 
+El  primer paso para generar las imagenes correspondientes a los container es usar el siguiente comando desde los directorios que contienene el log service y el balancedao round robin:
+~~~
+mvn package
+~~~
+~~~
+mvn package
+~~~
+
+Posteriormenete se proceder a asignarle un tag a cada imagen correspondiente al repositiorio docker hub donde se subira la imagen con los siguiente comando:
+~~~
+mvn package
+~~~
+~~~
+mvn package
+~~~
+
+Por ultimo procedemos a realizar el push de cada imagen dentro del repositorio docker hub con el siguiente comando:
+~~~
+mvn package
+~~~
+~~~
+mvn package
+~~~
+
+# Imagenes de Servicios en Doker Hub
 # Pruebas
 
 
