@@ -16,13 +16,17 @@ import spark.Response;
 
 
 /**
- * Hello world!
+ * @author Fernando Barrera Barrera
  *
  */
 public class App 
 {
 	private static int ports[]= {8001,8002,8003};
 	private static int selected = 0 ; 
+	
+	/**
+     * Este metodo main que  inicia el balancedor round robin y donde se definene dos servicios rest por medio de funciones lambda
+     */
     public static void main( String[] args ) throws UnknownHostException
     {
     	port(getPort());
@@ -31,10 +35,19 @@ public class App
     	
     	   	
     }
+    /**
+     *Este metodo contruye la vista inputView del metodo get del balancedor con un pequeño formulario para adicionar nuevos logs y una tabla en base a los datos que le
+     *retorne el logservice seleccionado
+     *
+     * @param req Tiene la informacion de la petición que llega al servidor.
+     * @param res Tiene la información con la respuesta del servidor.
+     * @return String con la informacion html de la vista de entrada.
+     */
+     
     private static String  inputView(Request req, Response res){
     	 String view="";
 		 try {
-			URL url = new URL("http://ec2-3-92-214-111.compute-1.amazonaws.com:"+String.valueOf(ports[selected])+"/consultlogs");
+			URL url = new URL("http://ec2-18-207-203-91.compute-1.amazonaws.com:"+String.valueOf(ports[selected])+"/consultlogs");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 			String inputLine;
 			String datos="";
@@ -93,9 +106,17 @@ public class App
     	return view;
     	
     }
+    /**
+     *Este metodo contruye  al metodo post del balancedor que simplemente se encarga de enviar una peticion get al logservice seleccionado
+     *para adicionar un nuevo log y llama la vista inputview para actualizar la tabla de logs de la vista y se evidencia que se inserto el log
+     *
+     * @param req Tiene la informacion de la petición que llega al servidor.
+     * @param res Tiene la información con la respuesta del servidor.
+     * @return String con la informacion html actualizad de la vista iputview().
+     */
     private static String  register(Request req, Response res){
     	try {
-			URL url = new URL("http://ec2-3-92-214-111.compute-1.amazonaws.com:"+String.valueOf(ports[selected])+"/savelogs?message="+(req.queryParams("message").replace(' ','_')));
+			URL url = new URL("http://ec2-18-207-203-91.compute-1.amazonaws.com:"+String.valueOf(ports[selected])+"/savelogs?message="+(req.queryParams("message").replace(' ','_')));
 			BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 			changePortBalance();
 			String inputLine;
@@ -112,6 +133,10 @@ public class App
     	return inputView(req,res);
     	
     }
+    /**
+     * Este metodo simplemenete es el metodo que se encarga de cambiar la variable estica selected que corresponda al indice del puerto del vector 
+     * de puertos ports y este puerto hace referencia al logservice al cual se le solicitara  la siguiente operacion ya sea consulta o insercion
+     */
     private static void changePortBalance() {
     	if(selected<2) {
     		selected+=1;
@@ -120,6 +145,10 @@ public class App
     		selected  = 0;
     	}
     }
+    /**
+     *Este metodo se encarga de retonar el puerto por defecto que esta definido en una variable de entorno 
+     *para correr el servidor web sobre ese puerto.
+     */
     static int getPort() {
 	   	 if (System.getenv("PORT") != null) {
 	   		 return Integer.parseInt(System.getenv("PORT"));
