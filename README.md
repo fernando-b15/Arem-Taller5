@@ -66,9 +66,9 @@ mvn package
 
 ![image3](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/packagebalance.PNG)
 
-# Generacion de Imagenes de containers
+# Generacion de Imagenes de Dockers
 
-El  primer paso para generar las imagenes correspondientes a los container es usar el siguiente comando desde los directorios que contienene el log service y el balancedao round robin:
+El  primer paso para generar las imagenes correspondientes a los container es usar el siguiente comando desde los directorios que contienen el log service y el balanceador round robin:
 
 ~~~
 docker build --tag logservice .
@@ -87,7 +87,7 @@ docker tag balanceador fernando15/logservice
 ~~~
 docker tag balanceador fernando15/balanceadorroundrobin
 ~~~
-![image7](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/imagebalance2.PNGG)
+![image7](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/imagebalance2.PNG)
 
 Por ultimo procedemos a realizar el push de cada imagen dentro del repositorio docker hub con el siguiente comando:
 ~~~
@@ -123,9 +123,14 @@ Para obtener la documentacion del servicios del log service y el balanceador rou
 mvn javadoc:javadoc
 ~~~
 
-![image6](https://github.com/fernando-b15/Arem-Taller2/blob/master/img/javadoc.PNG)
+![image15](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/javadoclog.PNG)
 
-para acceder a la documentacion de la apliacacion ingrese al siguiente enlace [apidocs](https://github.com/fernando-b15/Arem-Taller2/tree/master/apidocs) 
+
+para acceder a la documentacion del log service ingrese al siguiente enlace [apidocs](https://github.com/fernando-b15/Arem-Taller5/tree/master/LogService/apidocs) 
+
+![image16](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/javadocbalance.PNG)
+
+para acceder a la documentacion del balancedor round robin ingrese al siguiente enlace [apidocs](https://github.com/fernando-b15/Arem-Taller5/tree/master/BalanceadorRoundRobin/apidocs) 
 
 # Ejecucion
 
@@ -141,7 +146,7 @@ docker-compose up -d --scale web=3
 
 Asi podemos ver que se desplegaron localmente los 5 docker ,los cuales 1 corresponde a la base de datos mongoDB,otro al balanceador y los tres ultimos corresponden a los tres logservices:   
 
-![image14](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/docker-compose2.PNG)
+![image14](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/docker-compose3.PNG)
 
 
 Ahora ya podemos ver que podemos hacer uso de los servicios del log localmente desde nuestro en localhost en el buscador como se vera a continuacion:
