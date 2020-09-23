@@ -129,6 +129,8 @@ Asi podemos ver que se desplegaron localmente los 5 docker ,los cuales 1 corresp
 
 Ahora ya podemos ver que podemos hacer uso de los servicios del log localmente desde nuestro en localhost en el buscador como se vera a continuacion:   
 
+![image20](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/final.PNG)
+
 # Pruebas
 
 Para realizar la prueba de lo servicios de nusetros dockers usaremos la direccion del instancia ec2 amazon en el puerto 9000 que corresponde al balancedor round robin:
