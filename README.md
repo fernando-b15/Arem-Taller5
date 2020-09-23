@@ -111,9 +111,24 @@ La imagen del servicio balanceador round robin se encuentra en el siguiente link
 
 # Pruebas
 
+Para realizar la prueba de lo servicios de nusetros dockers usaremos la direccion del instancia ec2 amazon en el puerto 9000 que corresponde al balancedor round robin:
+~~~
+http://ec2-18-207-203-91.compute-1.amazonaws.com:9000/
+~~~
 
+![image17](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/test1.PNG)
 
+Ahora una vez ya tengamos insertados 10 logs,procedemos a insertar el log numero 11 como se vera a continuacion:
 
+![image18](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/test2.PNG)
+
+Ahora podemos ver que por ejemplo se inserto el  log numero 11 y se agrego al final de la tabla y el primer log desaparecio puesto que la tabla solo mostrara los 10 primeroS logs como se vera a continuacion:
+
+![image19](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/test3.PNG)
+
+Por ultimo vamos a revisar  todos los logs ingresados en el docker que contiene la instancia de la base mongoDB:
+
+![image19](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/test4.PNG)
 
 # Documentacion
 
