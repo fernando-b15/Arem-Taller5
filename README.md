@@ -31,25 +31,26 @@ Para comenzar la instalacion porfavor copie el siguiente comando en su linea de 
 git clone https://github.com/fernando-b15/Arem-Taller5
 ~~~
 
+![image1](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/clone.PNG)
+
 Posteriormente desde linea comandos ingrese al directorio de la aplicacion con el siguinete comando :
 
 ~~~
 cd Arem-Taller2
 ~~~
-
-![image3](https://github.com/fernando-b15/Arem-Taller2/blob/master/img/clone.PNG)
-
 Ahora proceda primero a entrar al directorio que contiene el servicio LogSercice:
 
 ~~~
-cd Log Service
+cd LogService
 ~~~
 
 Despues se realiza la compilacion y empaquetacion del  servicio log service con el siguinte comando:
 
 ~~~
-cd package
+mvn package
 ~~~
+
+![image2](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/packagelog.PNG)
 
 Pero adicionalmente vuelva al directorio principal de la aplicacion e ingrese al directorio que contiene el servicio Balanceador Round Robin:
 
@@ -63,38 +64,71 @@ Despues se realiza la compilacion y empaquetacion del  servicio Balanceador Roun
 mvn package
 ~~~
 
-# Generacion de Imagenes de containers
+![image3](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/packagebalance.PNG)
 
-El  primer paso para generar las imagenes correspondientes a los container es usar el siguiente comando desde los directorios que contienene el log service y el balancedao round robin:
+# Generacion de Imagenes de Dockers
+
+El  primer paso para generar las imagenes correspondientes a los container es usar el siguiente comando desde los directorios que contienen el log service y el balanceador round robin:
+
 ~~~
-mvn package
+docker build --tag logservice .
 ~~~
+![image4](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/imagelogservice1.PNG)
 ~~~
-mvn package
+docker build --tag balanceador .
 ~~~
+![image5](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/imagebalance1.PNG)
 
 Posteriormenete se proceder a asignarle un tag a cada imagen correspondiente al repositiorio docker hub donde se subira la imagen con los siguiente comando:
 ~~~
-mvn package
+docker tag balanceador fernando15/logservice
 ~~~
+![image6](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/imagelogservice2.PNG)
 ~~~
-mvn package
+docker tag balanceador fernando15/balanceadorroundrobin
 ~~~
+![image7](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/imagebalance2.PNG)
 
 Por ultimo procedemos a realizar el push de cada imagen dentro del repositorio docker hub con el siguiente comando:
 ~~~
-mvn package
+docker push fernando15/logservice:latest
 ~~~
+![image8](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/imagelogservice3.PNG)
 ~~~
-mvn package
+docker push fernando15/balanceadorroundrobin:latest
 ~~~
+![image9](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/imagebalance3.PNG)
 
 # Imagenes de Servicios en Doker Hub
+
+La imagen del servicio log service se encuentra en el siguiente link es:
+   * [ImageLogService](https://hub.docker.com/repository/docker/fernando15/logservice)
+   * ![image10](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/imagelogservice4.PNG)
+    
+La imagen del servicio balanceador round robin se encuentra en el siguiente link es:
+   * [ImageBalanceRoundRobin](https://hub.docker.com/repository/docker/fernando15/balanceadorroundrobin)
+   * ![image11](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/imagebalance4.PNG)
+
 # Pruebas
 
+Para realizar la prueba de lo servicios de nusetros dockers usaremos la direccion del instancia ec2 amazon en el puerto 9000 que corresponde al balancedor round robin:
+~~~
+http://ec2-18-207-203-91.compute-1.amazonaws.com:9000/
+~~~
 
+![image17](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/test1.PNG)
 
+Ahora una vez ya tengamos insertados 10 logs,procedemos a insertar el log numero 11 como se vera a continuacion:
 
+![image18](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/test2.PNG)
+
+Ahora podemos ver que por ejemplo se inserto el  log numero 11 y se agrego al final de la tabla y el primer log desaparecio puesto que la tabla solo mostrara los 10 primeroS logs como se vera a continuacion:
+
+![image19](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/test3.PNG)
+
+Por ultimo vamos a revisar  todos los logs ingresados en el docker que contiene la instancia de la base mongoDB:
+
+![image19](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/test4.PNG)
 
 # Documentacion
 
@@ -104,9 +138,14 @@ Para obtener la documentacion del servicios del log service y el balanceador rou
 mvn javadoc:javadoc
 ~~~
 
-![image6](https://github.com/fernando-b15/Arem-Taller2/blob/master/img/javadoc.PNG)
+![image15](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/javadoclog.PNG)
 
-para acceder a la documentacion de la apliacacion ingrese al siguiente enlace [apidocs](https://github.com/fernando-b15/Arem-Taller2/tree/master/apidocs) 
+
+para acceder a la documentacion del log service ingrese al siguiente enlace [apidocs](https://github.com/fernando-b15/Arem-Taller5/tree/master/LogService/apidocs) 
+
+![image16](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/javadocbalance.PNG)
+
+para acceder a la documentacion del balancedor round robin ingrese al siguiente enlace [apidocs](https://github.com/fernando-b15/Arem-Taller5/tree/master/BalanceadorRoundRobin/apidocs) 
 
 # Ejecucion
 
@@ -116,9 +155,14 @@ Para la ejecucion de toda la arquitectura de servcios dockers se hace desde el d
 docker-compose up -d --scale web=3
 ~~~
 
+![image12](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/docker-compose1.PNG)
+
+![image13](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/docker-compose2.PNG)
+
 Asi podemos ver que se desplegaron localmente los 5 docker ,los cuales 1 corresponde a la base de datos mongoDB,otro al balanceador y los tres ultimos corresponden a los tres logservices:   
 
-![image5](https://github.com/fernando-b15/Arem-Taller2/blob/master/img/web1.PNG)
+![image14](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/docker-compose3.PNG)
+
 
 Ahora ya podemos ver que podemos hacer uso de los servicios del log localmente desde nuestro en localhost en el buscador como se vera a continuacion:
 
