@@ -108,6 +108,24 @@ La imagen del servicio log service se encuentra en el siguiente link es:
 La imagen del servicio balanceador round robin se encuentra en el siguiente link es:
    * [ImageBalanceRoundRobin](https://hub.docker.com/repository/docker/fernando15/balanceadorroundrobin)
    * ![image11](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/imagebalance4.PNG)
+# Ejecucion
+
+Para la ejecucion de toda la arquitectura de servcios dockers se hace desde el directorio principal de la aplicacion, construimos la arquitectura de servicios que incluye los 5 dockers haciendo uso del docker-compose.yml con el siguiente comando:
+
+~~~
+docker-compose up -d --scale web=3
+~~~
+
+![image12](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/docker-compose1.PNG)
+
+![image13](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/docker-compose2.PNG)
+
+Asi podemos ver que se desplegaron localmente los 5 docker ,los cuales 1 corresponde a la base de datos mongoDB,otro al balanceador y los tres ultimos corresponden a los tres logservices:   
+
+![image14](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/docker-compose3.PNG)
+
+
+Ahora ya podemos ver que podemos hacer uso de los servicios del log localmente desde nuestro en localhost en el buscador como se vera a continuacion:   
 
 # Pruebas
 
@@ -147,28 +165,10 @@ para acceder a la documentacion del log service ingrese al siguiente enlace [api
 
 para acceder a la documentacion del balancedor round robin ingrese al siguiente enlace [apidocs](https://github.com/fernando-b15/Arem-Taller5/tree/master/BalanceadorRoundRobin/apidocs) 
 
-# Ejecucion
 
-Para la ejecucion de toda la arquitectura de servcios dockers se hace desde el directorio principal de la aplicacion, construimos la arquitectura de servicios que incluye los 5 dockers haciendo uso del docker-compose.yml con el siguiente comando:
+# Informe del taller(Despliegue en EC2 AWS)
 
-~~~
-docker-compose up -d --scale web=3
-~~~
-
-![image12](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/docker-compose1.PNG)
-
-![image13](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/docker-compose2.PNG)
-
-Asi podemos ver que se desplegaron localmente los 5 docker ,los cuales 1 corresponde a la base de datos mongoDB,otro al balanceador y los tres ultimos corresponden a los tres logservices:   
-
-![image14](https://github.com/fernando-b15/Arem-Taller5/blob/master/img/docker-compose3.PNG)
-
-
-Ahora ya podemos ver que podemos hacer uso de los servicios del log localmente desde nuestro en localhost en el buscador como se vera a continuacion:
-
-# Informe del taller
-
-Para conocer mas a fondo el desarrollo del taller acceda al [Informe](https://github.com/fernando-b15/Arem-Taller2/blob/master/Arem_Taller2.pdf)
+Para conocer mas a fondo el desarrollo del taller acceda al [Informe](https://github.com/fernando-b15/Arem-Taller5/blob/master/Arem_Taller5.pdf)
 
 # Licencia
 
